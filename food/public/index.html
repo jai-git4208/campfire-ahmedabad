@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campfire Ahmedabad — Food Order</title>
+  <meta name="description"
+    content="Order free snacks and meals at Campfire Ahmedabad hackathon. Manage your food orders easily!">
+  <link rel="icon" href="https://campfire.hackclub.com/favicon.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-badges">
+        <span class="hero-badge">HACK CLUB</span>
+        <span class="hero-badge">CAMPFIRE</span>
+      </div>
+
+      <h1 class="hero-title">FOOD ORDER</h1>
+      <div class="hero-subtitle">AHMEDABAD</div>
+      <p class="hero-description">
+        Grab free snacks, drinks & meals at the hackathon! All food is completely free — just tell us what you want.
+      </p>
+
+      <div class="hero-info">
+        <span class="hero-info-item"><a href="https://www.ahduni.edu.in/academics/schools-centres/venturestudio/"
+            target="_blank">Ahmedabad University VentureStudio</a></span>
+        <span class="hero-info-item">Feb 28 – Mar 1, 2026</span>
+      </div>
+
+      <!-- User greeting (shown after name entered) -->
+      <div class="user-greeting hidden" id="user-greeting">
+        <span>Hey, <strong id="greeting-name"></strong>!</span>
+        <button class="change-name" onclick="showNameSection()">(change)</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== GRASS DIVIDER ===== -->
+  <div class="grass-footer"></div>
+
+  <!-- ===== NAME INPUT ===== -->
+  <section class="name-section" id="name-section">
+    <div class="name-label">What's your name, hacker?</div>
+    <form class="name-input-wrapper" id="name-form">
+      <input type="text" class="name-input" id="name-input" placeholder="e.g. Jaimin" required minlength="2"
+        maxlength="30" autocomplete="off">
+      <button type="submit" class="name-btn" id="name-submit">LET'S GO!</button>
+    </form>
+  </section>
+
+  <!-- ===== MENU ===== -->
+  <main class="menu-section">
+    <h2 class="section-title">THE MENU</h2>
+
+    <div class="category-tabs" id="category-tabs"></div>
+    <div class="menu-grid" id="menu-grid"></div>
+  </main>
+
+  <!-- ===== CART ===== -->
+  <section class="cart-section">
+    <h2 class="section-title cart-title">YOUR ORDER</h2>
+    <div class="cart-container">
+      <div class="cart-scroll">
+        <div id="cart-items"></div>
+
+        <div class="cart-total">
+          <span class="cart-total-label">Total</span>
+          <span class="cart-total-count" id="cart-total-count">0 items</span>
+        </div>
+      </div>
+
+      <button class="place-order-btn" id="place-order-btn" disabled>
+        PLACE ORDER
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== ORDER HISTORY ===== -->
+  <section class="orders-section">
+    <h2 class="section-title">RECENT ORDERS</h2>
+    <div class="orders-list" id="orders-list"></div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-text">made with love for Campfire Ahmedabad</div>
+    <div class="footer-sub">
+      <a href="https://hackclub.com" target="_blank">Hack Club</a> ·
+      <a href="https://campfire.hackclub.com/ahmedabad" target="_blank">Campfire Ahmedabad</a> ·
+      <a href="/organiser.html">Organiser Panel</a>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

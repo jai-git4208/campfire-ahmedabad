@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campfire Ahmedabad — Organiser Panel</title>
+    <link rel="icon" href="https://campfire.hackclub.com/favicon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- Organiser-specific styles --- */
+        .organiser-hero {
+            background: linear-gradient(180deg, var(--dark-blue), var(--dark-blue-deep));
+            padding: var(--space-2xl) var(--space-lg) var(--space-xl);
+            text-align: center;
+        }
+
+        .organiser-hero .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+        }
+
+        .organiser-hero .hero-subtitle {
+            color: var(--highlight-yellow);
+        }
+
+        .organiser-nav {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            margin-top: var(--space-lg);
+        }
+
+        .organiser-nav a {
+            color: var(--highlight-yellow);
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            padding: var(--space-xs) var(--space-md);
+            border: 1px solid var(--highlight-yellow);
+            border-radius: var(--radius-pill);
+            transition: all 0.2s ease;
+        }
+
+        .organiser-nav a:hover {
+            background: var(--highlight-yellow);
+            color: var(--dark-blue);
+        }
+
+        /* Panel sections */
+        .panel-section {
+            max-width: 900px;
+            margin: var(--space-2xl) auto;
+            padding: 0 var(--space-lg);
+        }
+
+        .panel-card {
+            background: var(--parchment);
+            border: 2px solid var(--text-brown);
+            border-radius: var(--radius-sketchy);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-soft);
+            margin-bottom: var(--space-lg);
+        }
+
+        .panel-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-lg);
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .panel-card-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-brown);
+        }
+
+        /* Add item form */
+        .add-form {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+            margin-bottom: var(--space-lg);
+            padding: var(--space-md);
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            border: 1px dashed var(--text-brown-light);
+        }
+
+        .add-form input {
+            flex: 1;
+            min-width: 150px;
+            padding: var(--space-sm) var(--space-md);
+            border: var(--border-sketchy);
+            border-radius: var(--radius-sketchy);
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            color: var(--text-brown);
+            background: var(--white);
+            outline: none;
+        }
+
+        .add-form input:focus {
+            box-shadow: var(--shadow-glow-orange);
+        }
+
+        .add-form button {
+            padding: var(--space-sm) var(--space-lg);
+            border: 2px solid var(--text-brown);
+            border-radius: var(--radius-sketchy);
+            background: var(--green);
+            color: var(--white);
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .add-form button:hover {
+            background: var(--green-dark);
+            transform: scale(1.03);
+        }
+
+        /* Item list */
+        .item-row {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            padding: var(--space-md);
+            border-bottom: 1px solid var(--parchment-dark);
+            transition: background 0.2s ease;
+        }
+
+        .item-row:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .item-row:last-child {
+            border-bottom: none;
+        }
+
+        .item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--orange);
+            color: var(--white);
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-brown);
+        }
+
+        .item-desc {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: var(--text-brown-light);
+        }
+
+        .item-actions {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .btn-sm {
+            padding: 4px 12px;
+            border: 1px solid;
+            border-radius: 6px;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-edit {
+            background: var(--sky-lighter);
+            border-color: var(--sky-blue);
+            color: var(--dark-blue);
+        }
+
+        .btn-edit:hover {
+            background: var(--sky-blue);
+            color: var(--white);
+        }
+
+        .btn-delete {
+            background: #fde8e5;
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        .btn-delete:hover {
+            background: var(--red);
+            color: var(--white);
+        }
+
+        .empty-category {
+            text-align: center;
+            padding: var(--space-lg);
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--text-brown-light);
+            opacity: 0.6;
+        }
+
+        /* Add category form */
+        .add-category-form {
+            display: flex;
+            gap: var(--space-sm);
+            flex-wrap: wrap;
+            max-width: 500px;
+            margin: 0 auto var(--space-xl);
+        }
+
+        .add-category-form input {
+            flex: 1;
+            min-width: 120px;
+            padding: var(--space-sm) var(--space-md);
+            border: 2px solid var(--white);
+            border-radius: var(--radius-sketchy);
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            color: var(--text-brown);
+            background: var(--white);
+            outline: none;
+        }
+
+        .add-category-form button {
+            padding: var(--space-sm) var(--space-lg);
+            border: 2px solid var(--white);
+            border-radius: var(--radius-sketchy);
+            background: var(--orange);
+            color: var(--white);
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .add-category-form button:hover {
+            background: var(--orange-dark);
+            transform: scale(1.03);
+        }
+
+        /* Orders panel */
+        .order-panel-card {
+            margin-bottom: var(--space-md);
+        }
+
+        .order-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--space-sm);
+        }
+
+        .order-panel-actions {
+            display: flex;
+            gap: var(--space-xs);
+        }
+
+        .btn-fulfill {
+            background: var(--green);
+            border-color: var(--green-dark);
+            color: var(--white);
+        }
+
+        .btn-fulfill:hover {
+            background: var(--green-dark);
+        }
+
+        /* Stats */
+        .stats-row {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .stat-card {
+            background: var(--parchment);
+            border: 2px solid var(--text-brown);
+            border-radius: var(--radius-sketchy);
+            padding: var(--space-md) var(--space-xl);
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            min-width: 140px;
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--orange);
+        }
+
+        .stat-label {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            color: var(--text-brown-light);
+        }
+
+        /* Edit modal */
+        .edit-modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            text-align: left;
+        }
+
+        .edit-modal-form label {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-brown);
+        }
+
+        .edit-modal-form input {
+            padding: var(--space-sm) var(--space-md);
+            border: var(--border-sketchy);
+            border-radius: var(--radius-sketchy);
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            color: var(--text-brown);
+        }
+
+        .edit-modal-form input:focus {
+            box-shadow: var(--shadow-glow-orange);
+            outline: none;
+        }
+
+        .edit-modal-actions {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            margin-top: var(--space-md);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== HERO ===== -->
+    <header class="hero organiser-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">ORGANISER PANEL</h1>
+            <div class="hero-subtitle">Campfire Ahmedabad — Food Service</div>
+
+            <div class="organiser-nav">
+                <a href="/">View Order Page</a>
+                <a href="#menu-management">Menu</a>
+                <a href="#orders-management">Orders</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== STATS ===== -->
+    <section class="panel-section">
+        <div class="stats-row" id="stats-row"></div>
+    </section>
+
+    <!-- ===== MENU MANAGEMENT ===== -->
+    <section class="panel-section" id="menu-management">
+        <h2 class="section-title">MANAGE MENU</h2>
+
+        <!-- Add Category -->
+        <form class="add-category-form" id="add-category-form">
+            <input type="text" id="new-cat-key" placeholder="Category key (e.g. desserts)" required>
+            <input type="text" id="new-cat-label" placeholder="Display name (e.g. Desserts)" required>
+            <button type="submit">Add Category</button>
+        </form>
+
+        <div id="menu-panels"></div>
+    </section>
+
+    <!-- ===== ORDERS MANAGEMENT ===== -->
+    <section class="panel-section" id="orders-management">
+        <h2 class="section-title">MANAGE ORDERS</h2>
+        <div id="orders-panels"></div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-text">Campfire Ahmedabad — Organiser Panel</div>
+        <div class="footer-sub">
+            <a href="/">Back to Order Page</a> ·
+            <a href="https://campfire.hackclub.com/ahmedabad" target="_blank">Campfire Ahmedabad</a>
+        </div>
+    </footer>
+
+    <script>
+        // --- API Helpers ---
+        async function api(url, method = 'GET', body = null) {
+            const opts = { method, headers: { 'Content-Type': 'application/json' } };
+            if (body) opts.body = JSON.stringify(body);
+            const res = await fetch(url, opts);
+            return res.json();
+        }
+
+        const $ = (sel) => document.querySelector(sel);
+
+        // --- State ---
+        let MENU = {};
+        let ORDERS = [];
+
+        // --- Init ---
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadAll();
+
+            $('#add-category-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const key = $('#new-cat-key').value.trim().toLowerCase().replace(/\s+/g, '_');
+                const label = $('#new-cat-label').value.trim();
+                if (!key || !label) return;
+
+                await api('/api/menu/category', 'POST', { key, label });
+                $('#new-cat-key').value = '';
+                $('#new-cat-label').value = '';
+                await loadAll();
+            });
+        });
+
+        async function loadAll() {
+            MENU = await api('/api/menu');
+            ORDERS = await api('/api/orders');
+            renderStats();
+            renderMenuPanels();
+            renderOrdersPanels();
+        }
+
+        // --- Stats ---
+        function renderStats() {
+            const totalOrders = ORDERS.length;
+            const pendingOrders = ORDERS.filter((o) => o.status === 'pending').length;
+            const totalItems = ORDERS.reduce((sum, o) => sum + o.items.reduce((s, i) => s + i.qty, 0), 0);
+            const menuItemCount = Object.values(MENU).reduce((sum, c) => sum + c.items.length, 0);
+
+            $('#stats-row').innerHTML = `
+        <div class="stat-card">
+          <div class="stat-value">${totalOrders}</div>
+          <div class="stat-label">Total Orders</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${pendingOrders}</div>
+          <div class="stat-label">Pending</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${totalItems}</div>
+          <div class="stat-label">Items Ordered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${menuItemCount}</div>
+          <div class="stat-label">Menu Items</div>
+        </div>
+      `;
+        }
+
+        // --- Menu Panels ---
+        function renderMenuPanels() {
+            const container = $('#menu-panels');
+            container.innerHTML = '';
+
+            Object.entries(MENU).forEach(([key, cat]) => {
+                const panel = document.createElement('div');
+                panel.className = 'panel-card';
+                panel.innerHTML = `
+          <div class="panel-card-header">
+            <span class="panel-card-title">${cat.label}</span>
+            <button class="btn-sm btn-delete" onclick="deleteCategory('${key}')">Delete Category</button>
+          </div>
+          <form class="add-form" onsubmit="addItem(event, '${key}')">
+            <input type="text" placeholder="Item name" id="new-name-${key}" required>
+            <input type="text" placeholder="Description" id="new-desc-${key}">
+            <button type="submit">Add Item</button>
+          </form>
+          <div id="items-${key}">
+            ${cat.items.length === 0
+                        ? '<div class="empty-category">No items yet — add some above!</div>'
+                        : cat.items.map((item) => `
+                <div class="item-row">
+                  <div class="item-icon">${item.name.charAt(0)}</div>
+                  <div class="item-details">
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-desc">${item.desc}</div>
+                  </div>
+                  <div class="item-actions">
+                    <button class="btn-sm btn-edit" onclick="editItem('${key}', '${item.id}', '${item.name.replace(/'/g, "\\'")}', '${(item.desc || '').replace(/'/g, "\\'")}')">Edit</button>
+                    <button class="btn-sm btn-delete" onclick="deleteItem('${key}', '${item.id}')">Delete</button>
+                  </div>
+                </div>
+              `).join('')
+                    }
+          </div>
+        `;
+                container.appendChild(panel);
+            });
+        }
+
+        // --- Menu Actions ---
+        async function addItem(e, category) {
+            e.preventDefault();
+            const name = $(`#new-name-${category}`).value.trim();
+            const desc = $(`#new-desc-${category}`).value.trim();
+            if (!name) return;
+
+            await api(`/api/menu/${category}/item`, 'POST', { name, desc });
+            $(`#new-name-${category}`).value = '';
+            $(`#new-desc-${category}`).value = '';
+            await loadAll();
+        }
+        window.addItem = addItem;
+
+        async function deleteItem(category, id) {
+            if (!confirm('Delete this item?')) return;
+            await api(`/api/menu/${category}/item/${id}`, 'DELETE');
+            await loadAll();
+        }
+        window.deleteItem = deleteItem;
+
+        async function deleteCategory(key) {
+            if (!confirm(`Delete the entire "${MENU[key]?.label}" category and all its items?`)) return;
+            await api(`/api/menu/category/${key}`, 'DELETE');
+            await loadAll();
+        }
+        window.deleteCategory = deleteCategory;
+
+        function editItem(category, id, name, desc) {
+            // Create edit modal
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay';
+            overlay.id = 'edit-modal';
+
+            overlay.innerHTML = `
+        <div class="modal-content">
+          <div class="modal-title">Edit Item</div>
+          <form class="edit-modal-form" id="edit-form">
+            <label>Name</label>
+            <input type="text" id="edit-name" value="${name}" required>
+            <label>Description</label>
+            <input type="text" id="edit-desc" value="${desc}">
+            <div class="edit-modal-actions">
+              <button type="button" class="btn-sm btn-delete" onclick="closeEditModal()">Cancel</button>
+              <button type="submit" class="btn-sm btn-fulfill">Save</button>
+            </div>
+          </form>
+        </div>
+      `;
+
+            document.body.appendChild(overlay);
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closeEditModal();
+            });
+
+            $('#edit-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const newName = $('#edit-name').value.trim();
+                const newDesc = $('#edit-desc').value.trim();
+                await api(`/api/menu/${category}/item/${id}`, 'PUT', { name: newName, desc: newDesc });
+                closeEditModal();
+                await loadAll();
+            });
+        }
+        window.editItem = editItem;
+
+        function closeEditModal() {
+            const modal = $('#edit-modal');
+            if (modal) modal.remove();
+        }
+        window.closeEditModal = closeEditModal;
+
+        // --- Orders Panels ---
+        function renderOrdersPanels() {
+            const container = $('#orders-panels');
+
+            if (!ORDERS || ORDERS.length === 0) {
+                container.innerHTML = '<div class="no-orders">No orders yet.</div>';
+                return;
+            }
+
+            container.innerHTML = ORDERS.slice(0, 50).map((order) => {
+                const time = new Date(order.time);
+                const timeStr = time.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+                const dateStr = time.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+
+                return `
+          <div class="panel-card order-panel-card">
+            <div class="order-panel-header">
+              <div>
+                <span class="order-card-name">${order.name}</span>
+                <span class="order-card-time" style="margin-left:12px">${dateStr}, ${timeStr}</span>
+              </div>
+              <div class="order-panel-actions">
+                ${order.status === 'pending'
+                        ? `<button class="btn-sm btn-fulfill" onclick="fulfillOrder('${order.id}')">Mark Ready</button>`
+                        : `<span class="order-status fulfilled">Ready</span>`
+                    }
+                <button class="btn-sm btn-delete" onclick="deleteOrder('${order.id}')">Delete</button>
+              </div>
+            </div>
+            <div class="order-card-items" style="margin-top:8px">
+              ${order.items.map((i) => `<span class="order-chip">${i.name}${i.qty > 1 ? ' x' + i.qty : ''}</span>`).join('')}
+            </div>
+            ${order.status === 'pending' ? '<span class="order-status pending" style="margin-top:8px">Preparing</span>' : ''}
+          </div>
+        `;
+            }).join('');
+        }
+
+        async function fulfillOrder(id) {
+            await api(`/api/orders/${id}`, 'PATCH', { status: 'fulfilled' });
+            await loadAll();
+        }
+        window.fulfillOrder = fulfillOrder;
+
+        async function deleteOrder(id) {
+            if (!confirm('Delete this order?')) return;
+            await api(`/api/orders/${id}`, 'DELETE');
+            await loadAll();
+        }
+        window.deleteOrder = deleteOrder;
+    </script>
+</body>
+
+</html>

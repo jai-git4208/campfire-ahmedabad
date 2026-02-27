@@ -1,0 +1,13 @@
+{
+  "name": "campfire-food-order",
+  "version": "1.0.0",
+  "description": "Food ordering service for Campfire Ahmedabad hackathon",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "snacks": {
+    "label": "Snacks",
+    "items": [
+      {
+        "id": "s1",
+        "name": "Popcorn",
+        "desc": "Buttery & salted, classic movie-night style"
+      },
+      {
+        "id": "s2",
+        "name": "Cookies",
+        "desc": "Fresh-baked chocolate chip cookies"
+      },
+      {
+        "id": "s3",
+        "name": "Cupcakes",
+        "desc": "Vanilla frosted cupcakes with sprinkles"
+      },
+      {
+        "id": "s4",
+        "name": "Pretzels",
+        "desc": "Soft pretzel bites with cheese dip"
+      },
+      {
+        "id": "s5",
+        "name": "Pizza Slice",
+        "desc": "Hot cheesy pizza, perfect hackathon fuel"
+      },
+      {
+        "id": "s6",
+        "name": "Sandwich",
+        "desc": "Freshly made veggie or paneer sandwich"
+      },
+      {
+        "id": "s7",
+        "name": "Tacos",
+        "desc": "Crunchy tacos with all the toppings"
+      },
+      {
+        "id": "s8",
+        "name": "Donuts",
+        "desc": "Glazed donuts, sugar rush guaranteed!"
+      }
+    ]
+  },
+  "drinks": {
+    "label": "Drinks",
+    "items": [
+      {
+        "id": "d1",
+        "name": "Coffee",
+        "desc": "Hot brewed coffee to keep you coding"
+      },
+      {
+        "id": "d2",
+        "name": "Chai",
+        "desc": "Masala chai, the Indian way"
+      },
+      {
+        "id": "d3",
+        "name": "Juice Box",
+        "desc": "Mixed fruit juice, refreshing & sweet"
+      },
+      {
+        "id": "d4",
+        "name": "Cold Drink",
+        "desc": "Chilled soda \u2014 cola, lime, or orange"
+      },
+      {
+        "id": "d5",
+        "name": "Milkshake",
+        "desc": "Thick chocolate or mango milkshake"
+      },
+      {
+        "id": "d6",
+        "name": "Water Bottle",
+        "desc": "Stay hydrated, hacker!"
+      }
+    ]
+  },
+  "meals": {
+    "label": "Meals",
+    "items": [
+      {
+        "id": "m1",
+        "name": "Dal Rice",
+        "desc": "Comfort food \u2014 dal tadka with steamed rice"
+      },
+      {
+        "id": "m2",
+        "name": "Pav Bhaji",
+        "desc": "Mumbai-style pav bhaji with butter"
+      },
+      {
+        "id": "m3",
+        "name": "Roti Sabzi",
+        "desc": "Fresh roti with mixed veg sabzi"
+      },
+      {
+        "id": "m4",
+        "name": "Maggi",
+        "desc": "Two-minute noodles, hackathon classic!"
+      },
+      {
+        "id": "m5",
+        "name": "Salad Bowl",
+        "desc": "Fresh garden salad with dressings"
+      },
+      {
+        "id": "m6",
+        "name": "Biryani",
+        "desc": "Fragrant veg biryani with raita"
+      }
+    ]
+  }
+}
