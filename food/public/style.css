@@ -185,6 +185,17 @@ body::before {
   margin-bottom: var(--space-md);
 }
 
+.hero-watermark {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--white);
+  opacity: 0.6;
+  margin-top: -10px;
+  margin-bottom: var(--space-md);
+  letter-spacing: 2px;
+  transform: rotate(-2deg);
+}
+
 .hero-description {
   font-family: var(--font-body);
   font-size: 1.1rem;
